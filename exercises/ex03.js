@@ -7,12 +7,27 @@ Create a function named numberOfVowels that will receive a string and return the
 
 */
 
+const ErrorMessage = {
+  INVALID_INPUT: "Invalid input: Input must be a string",
+}
+
+const VOWELS = ['a', 'e', 'i', 'o', 'u'];
+
 const numberOfVowels = function (data) {
-  // Put your solution here
+  if (typeof data !== "string") {
+    return ErrorMessage.INVALID_INPUT;
+  }
+
+  const lowerCaseData = data.toLowerCase().trim();
+  const dataArray = lowerCaseData.split('');
+
+  const vowelCount = dataArray.filter(char => VOWELS.includes(char)).length;
+  return vowelCount;
 };
 
 console.log(numberOfVowels("orange")); // 3
 console.log(numberOfVowels("cornerstone college")); // 7
 console.log(numberOfVowels("aeiou")); // 5
 
-module.exports = numberOfVowels;
+module.exports.numberOfVowels = numberOfVowels;
+module.exports.ErrorMessage = ErrorMessage;
