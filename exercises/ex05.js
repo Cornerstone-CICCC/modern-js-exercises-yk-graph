@@ -18,12 +18,29 @@ Warning
 Use some sort of looping. Do Not use String.prototype.replace
 */
 
-const urlEncode = function (text) {
-  // Put your solution here
+const ErrorMessages = {
+  INVALID_STRING: 'Please provide a valid string',
 };
 
-console.log(urlEncode("cornerstone college")); //cornerstone%20college
+const urlEncode = function (text) {
+  if (text === undefined || text.length === 0) {
+    return ErrorMessages.INVALID_STRING;
+  }
+
+  const trimmedText = text.trim();
+  const splittedText = trimmedText.split(' ');
+  const encodedText = [];
+
+  for (let i = 0; i < splittedText.length; i++) {
+    encodedText.push(splittedText[i]);
+  }
+  
+  return encodedText.join('%20');
+};
+
+console.log(urlEncode("cornerstone   college")); //cornerstone%20college
 console.log(urlEncode(" cornerstone college ")); //cornerstone%20college
 console.log(urlEncode("blue is greener than purple for sure")); //blue%20is%20greener%20than%20purple%20for%20sure
 
-module.exports = urlEncode;
+module.exports.urlEncode = urlEncode;
+module.exports.ErrorMessages = ErrorMessages;
