@@ -1,4 +1,4 @@
-const chooseRecipe = require("../exercises/ex12");
+const {chooseRecipe, NotFoundMessage} = require("../exercises/ex12");
 
 const bakeryA = ["saffron", "eggs", "tomato paste", "coconut", "custard"];
 const bakeryB = ["milk", "butter", "cream cheese"];
@@ -42,4 +42,8 @@ test("return recipe name if one of ingredients are included in each bakery", () 
   expect(chooseRecipe(bakeryC, bakeryD, recipes2)).toBe(
     "Nima's Famous Dijon Raisins"
   );
+});
+
+test("No recipe found returns NotFoundMessage", () => {
+  expect(chooseRecipe([], [], [])).toBe(NotFoundMessage);
 });

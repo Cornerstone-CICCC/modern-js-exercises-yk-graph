@@ -20,8 +20,19 @@ This one is a doozy! We might want to start by creating a helper function called
 
 */
 
+const NotFoundMessage = "No recipe found";
+
 const chooseRecipe = function (bakeryA, bakeryB, recipes) {
-  // Code here!
+  const result = recipes.find(recipe => {
+    const includesA = recipe.ingredients.some(ingredient => bakeryA.includes(ingredient));
+    const includesB = recipe.ingredients.some(ingredient => bakeryB.includes(ingredient));
+
+    if (includesA && includesB) {
+      return recipe;
+    }
+  })
+
+  return result ? result.name : NotFoundMessage;
 };
 
 let bakeryA = ["saffron", "eggs", "tomato paste", "coconut", "custard"];
@@ -62,4 +73,7 @@ recipes = [
 
 console.log(chooseRecipe(bakeryA, bakeryB, recipes)); //Nima's Famous Dijon Raisins
 
-module.exports = chooseRecipe;
+module.exports = {
+  chooseRecipe,
+  NotFoundMessage
+};
