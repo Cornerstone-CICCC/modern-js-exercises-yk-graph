@@ -1,4 +1,4 @@
-const calculateChange = require("../exercises/ex14");
+const {calculateChange, ErrorMessages} = require("../exercises/ex14");
 
 test("return obj with keys as type of change and amount of each as values, not showing amount = 0", () => {
   expect(calculateChange(1787, 2000)).toStrictEqual({
@@ -26,3 +26,12 @@ test("return obj with keys as type of change and amount of each as values, not s
     penny: 4,
   });
 });
+
+test("return 'Just enough cash given, no change due.' when total equals cash", () => {
+  expect(calculateChange(1000, 1000)).toBe(ErrorMessages.NO_CHANGE);
+});
+
+test("return 'Insufficient cash given.' when total is more than cash", () => {
+  expect(calculateChange(1500, 1000)).toBe(ErrorMessages.EXTRA_CASH);
+});
+
