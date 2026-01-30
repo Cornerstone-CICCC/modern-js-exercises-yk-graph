@@ -15,8 +15,55 @@ For more information on casing styles, read Wikipedia's Special Case Styles for 
 
 */
 
+const Vowels = "aeiouAEIOU";
+
 const makeCaze = function (input, caze) {
-  // Put your solution here
+  const toCamel = (str) => {
+    const words = str.split(" ");
+    const firstWord = words[0].toLowerCase();
+    const otherWords = words.slice(1).map(word => `${word.charAt(0).toUpperCase()}${word.slice(1).toLowerCase()}`).join("");
+    return `${firstWord}${otherWords}`;
+  }
+
+  const toPascal = (str) => str.split(" ").map(word => `${word.charAt(0).toUpperCase()}${word.slice(1).toLowerCase()}`).join("");
+
+  const toSnake = (str) => str.split(" ").join("_");
+
+  const toKebab = (str) => str.split(" ").join("-");
+
+  const toTitle = (str) => str.split(" ").map(word => `${word.charAt(0).toUpperCase()}${word.slice(1).toLowerCase()}`).join(" ");
+
+  const toVowel = (str) => str.split("").map(char => Vowels.includes(char) ? char.toUpperCase() : char).join('')
+  
+  const toConsonant = (str) => str.split("").map(char => !Vowels.includes(char) ? char.toUpperCase() : char).join('')
+
+  const toUpper = (str) => str.toUpperCase();
+
+  const toLower = (str) => str.toLowerCase();
+
+  const caseFunctions = {
+    camel: toCamel,
+    pascal: toPascal,
+    snake: toSnake,
+    kebab: toKebab,
+    title: toTitle,
+    vowel: toVowel,
+    consonant: toConsonant,
+    upper: toUpper,
+    lower: toLower
+  };
+
+  let result = input;
+
+  if (Array.isArray(caze)) {
+    for (const c of caze) {
+      result = caseFunctions[c](result);
+    }
+  } else {
+    result = caseFunctions[caze](result);
+  }
+
+  return result;
 };
 
 console.log(makeCaze("this is a string", "camel")); // thisIsAString
